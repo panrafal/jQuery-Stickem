@@ -39,6 +39,7 @@
 			onUnstick: null,
 			overflow: true,
 			topProperty: 'top',
+			leftProperty: 'margin-left',
 		},
 
 		init: function() {
@@ -147,6 +148,10 @@
 									- item.$elem.offsetParent().offset().top + 'px'
 							);
 						}
+						// reset left
+						if (_self.config.leftProperty) {
+							item.$elem.css(_self.config.leftProperty, '');
+						}
 						//only at the bottom
 						if(pos > item.scrollFinish) {
 							item.$elem.addClass(_self.config.endStickClass);
@@ -192,6 +197,10 @@
 						if(_self.config.onStick) {
 							_self.config.onStick(item);
 						}
+					}
+					// correct horizontal scroll position
+					if (item.isStuck && _self.config.leftProperty) {
+						item.$elem.css(_self.config.leftProperty, - _self.$win.scrollLeft() + 'px');
 					}
 				}
 			}
