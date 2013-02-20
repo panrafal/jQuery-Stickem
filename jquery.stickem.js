@@ -23,6 +23,9 @@
 		this.metadata = this.$elem.data("stickem-options");
 		this.$win = $(window);
 		this.lastPos = 0;
+
+		// store for later retrieval
+		this.$elem.data('stickem', this);
 	};
 
 	Stickem.prototype = {
@@ -53,6 +56,13 @@
 			_self.bindEvents();
 
 			return _self;
+		},
+
+		refresh: function(options) {
+			if (options) this.config = $.extend({}, this.config, options);
+
+			this.handleResize();
+			this.handleScroll();
 		},
 
 		bindEvents: function() {
@@ -222,7 +232,12 @@
 		};
 
 		return this.each(function() {
-			new Stickem(this, options).init();
+			var existing = $(this).data('stickem');
+			if (existing) {
+				existing.refresh(options);
+			} else {
+				new Stickem(this, options).init();
+			}
 		});
 	};
 
