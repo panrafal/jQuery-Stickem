@@ -175,18 +175,15 @@
 									item.$elem.css(_self.config.topProperty, (-item.overflowAmount) + 'px');
 									item.isOverflowing = -1;
 								} else if (_self.lastPos > pos && itemOffsetTop > pos) {
-									item.$elem.css(_self.config.topProperty, '0px');
+									item.$elem.css(_self.config.topProperty, '');
 									item.isOverflowing = 1;
 								} else if (itemOffsetTop > pos + _self.windowHeight || itemOffsetTop + item.elemHeight < pos) {
-									item.$elem.css(_self.config.topProperty, '0px');
-								// } else if (item.$elem.hasClass(_self.config.stickClass)) {
-								// 	// we actually are not sticked...
-								// 	item.isOverflowing = -1;
+									item.$elem.css(_self.config.topProperty, '');
 								} else {
 									return;
 								}
 							} else {
-								item.$elem.css(_self.config.topProperty, '0px');
+								item.$elem.css(_self.config.topProperty, '');
 							}
 						}
 						item.$elem.removeClass(_self.config.endStickClass + ' ' + _self.config.overflowStickClass)
@@ -203,8 +200,8 @@
 						item.$elem.css(_self.config.leftProperty, - _self.$win.scrollLeft() + 'px');
 					}
 				}
+				_self.lastPos = pos;
 			}
-			_self.lastPos = pos;
 		},
 
 		setWindowHeight: function() {
